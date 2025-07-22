@@ -7,6 +7,13 @@ const app = express();
 // Middleware
 app.use(cors()); // Abilita CORS per tutte le richieste HTTP
 app.use(express.json({ limit: '10mb' })); // Permette di parsare body JSON grandi
+
+// NUOVO: Endpoint di health check per verificare se il server è online
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.status(200).send('Il server Whisper è attivo e funzionante!');
+});
+
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 // Strutture dati in memoria
